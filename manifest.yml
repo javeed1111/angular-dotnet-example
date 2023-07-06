@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: angular-webapp
-  name: angular-webapp
+    app: angular-webapp3
+  name: angular-webapp3
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: angular-webapp
+      app: angular-webapp3
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: angular-webapp
+        app: angular-webapp3
     spec:
       containers:
       - image: registryf1.azurecr.io/aksdemo/angular-dotnet:v1
-        name: webapp
+        name: angular-webapp3
         imagePullPolicy: Always
         resources: {}
         ports:
@@ -31,13 +31,14 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: angular-webapp
+  name: angular-webapp3
   labels:
-    run: angular-webapp
+    run: angular-webapp3
 spec:
-  ports:
-  - port: 80
-    protocol: TCP
   selector:
-    app: angular-webapp
-  type: LoadBalancer
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 6000  # The port you want to expose externally
+      targetPort: 80  # The port your application is listening on
+  type: NodePort  # Or LoadBalancer depending on your requirements
