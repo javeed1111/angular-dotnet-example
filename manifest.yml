@@ -4,9 +4,9 @@ metadata:
   creationTimestamp: null
   labels:
     app: my-app
-  name: angular-webapp5
+  name: angular-app
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: my-app
@@ -19,11 +19,11 @@ spec:
     spec:
       containers:
       - image: registryf1.azurecr.io/aksdemo/angular-dotnet:v1
-        name: angular-webapp5
+        name: angular-app
         imagePullPolicy: Always
         resources: {}
         ports:
-          - containerPort: 80 
+          - containerPort: 8000
 status: {}
 
 ---
@@ -31,15 +31,15 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: angular-webapp5
+  name: angular-app
   labels:
     run: my-app
 spec:
   selector:
-    app: angular-webapp5
+    app: angular-app
   ports:
     - protocol: TCP
-      port: 6000  # The port you want to expose externally
-      targetPort: 80  # The port your application is listening on
-  type: NodePort  # Or LoadBalancer depending on your requirements
+      port: 8000  # The port you want to expose externally
+      targetPort: 8000  # The port your application is listening on
+  type: loadbalencer  # Or LoadBalancer depending on your requirements
 
